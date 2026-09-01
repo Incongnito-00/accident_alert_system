@@ -1,6 +1,6 @@
 // ============================================================
 // ACCIDENT ALERT SYSTEM
-// FINAL script.js
+// FINAL FRONTEND SCRIPT
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // ACCIDENT LOCATION
+    // DEFAULT ACCIDENT LOCATION
     // ========================================================
 
     let accidentLocation = {
@@ -116,6 +116,47 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     ];
+
+
+    // ========================================================
+    // BASIC DEPARTMENT LOGIN CREDENTIALS
+    // ========================================================
+
+    const LOGIN_CREDENTIALS = {
+
+        Police: {
+
+            id: "POLICE001",
+
+            password: "police123"
+
+        },
+
+        Hospital: {
+
+            id: "HOSPITAL001",
+
+            password: "hospital123"
+
+        },
+
+        "Fire & Rescue": {
+
+            id: "FIRE001",
+
+            password: "fire123"
+
+        },
+
+        Ambulance: {
+
+            id: "AMB001",
+
+            password: "ambulance123"
+
+        }
+
+    };
 
 
     // ========================================================
@@ -169,7 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function openLoginModal() {
 
         if (!loginModal) {
+
             return;
+
         }
 
 
@@ -305,9 +348,33 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
+            const account =
+                LOGIN_CREDENTIALS[
+                    selectedDepartment
+                ];
+
+
             // ------------------------------------------------
-            // DEMO LOGIN
-            // Real authentication will be added later.
+            // CHECK LOGIN
+            // ------------------------------------------------
+
+            if (
+                !account ||
+                enteredId !== account.id ||
+                enteredPassword !== account.password
+            ) {
+
+                showLoginError(
+                    "Invalid department ID or password."
+                );
+
+                return;
+
+            }
+
+
+            // ------------------------------------------------
+            // SUCCESSFUL LOGIN
             // ------------------------------------------------
 
             loggedIn = true;
@@ -331,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             showMessage(
-                `${selectedDepartment} portal accessed successfully.`
+                `${selectedDepartment} login successful.`
             );
 
         }
@@ -345,7 +412,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function showLoginError(message) {
 
         if (!loginError) {
+
             return;
+
         }
 
 
@@ -362,7 +431,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function hideLoginError() {
 
         if (!loginError) {
+
             return;
+
         }
 
 
@@ -390,12 +461,20 @@ document.addEventListener("DOMContentLoaded", () => {
             stopAccidentMonitoring();
 
 
-            dashboardPage.style.display =
-                "none";
+            if (dashboardPage) {
+
+                dashboardPage.style.display =
+                    "none";
+
+            }
 
 
-            landingPage.style.display =
-                "block";
+            if (landingPage) {
+
+                landingPage.style.display =
+                    "block";
+
+            }
 
 
             if (dashboardMain) {
@@ -439,8 +518,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             window.scrollTo({
+
                 top: 0,
+
                 behavior: "smooth"
+
             });
 
 
@@ -459,16 +541,26 @@ document.addEventListener("DOMContentLoaded", () => {
     function showDashboard() {
 
         if (!loggedIn) {
+
             return;
+
         }
 
 
-        landingPage.style.display =
-            "none";
+        if (landingPage) {
+
+            landingPage.style.display =
+                "none";
+
+        }
 
 
-        dashboardPage.style.display =
-            "flex";
+        if (dashboardPage) {
+
+            dashboardPage.style.display =
+                "flex";
+
+        }
 
 
         if (dashboardMain) {
@@ -493,8 +585,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         window.scrollTo({
+
             top: 0,
+
             behavior: "smooth"
+
         });
 
     }
@@ -598,7 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     centerAccidentLocation();
 
-                }, 300);
+                }, 400);
 
                 break;
 
@@ -647,13 +742,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // SHOW LIVE ALERT PAGE
+    // SHOW LIVE ALERTS
     // ========================================================
 
     function showLiveAlerts() {
 
         if (!loggedIn) {
+
             return;
+
         }
 
 
@@ -683,15 +780,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         window.scrollTo({
+
             top: 0,
+
             behavior: "smooth"
+
         });
 
     }
 
 
     // ========================================================
-    // DASHBOARD ACTIVE ALERT BUTTON
+    // ALERT BUTTON
     // ========================================================
 
     const alertButton =
@@ -716,7 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // DASHBOARD RESPONSE BUTTON
+    // RESPOND BUTTON
     // ========================================================
 
     const dashboardRespondButton =
@@ -741,7 +841,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // DASHBOARD MAP BUTTON
+    // MAP BUTTON
     // ========================================================
 
     const dashboardMapButton =
@@ -766,14 +866,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 centerAccidentLocation();
 
-            }, 400);
+            }, 500);
 
         }
     );
 
 
     // ========================================================
-    // LEAFLET MAP
+    // INITIALIZE LEAFLET MAP
     // ========================================================
 
     function initializeAccidentMap() {
@@ -800,7 +900,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             console.error(
-                "Leaflet has not loaded."
+                "Leaflet is not loaded."
             );
 
             showMessage(
@@ -811,8 +911,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
-        // Already initialized
 
         if (accidentMap !== null) {
 
@@ -835,29 +933,41 @@ document.addEventListener("DOMContentLoaded", () => {
             L.map(
                 "accidentMap",
                 {
+
                     zoomControl: true,
+
                     attributionControl: true
+
                 }
             )
             .setView(
+
                 [
+
                     accidentLocation.latitude,
+
                     accidentLocation.longitude
+
                 ],
+
                 16
+
             );
 
 
         // ----------------------------------------------------
-        // OPENSTREETMAP
+        // OPEN STREET MAP
         // ----------------------------------------------------
 
         L.tileLayer(
             "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
+
                 maxZoom: 19,
+
                 attribution:
                     "&copy; OpenStreetMap contributors"
+
             }
         ).addTo(
             accidentMap
@@ -865,7 +975,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         // ----------------------------------------------------
-        // ACCIDENT ICON
+        // ACCIDENT MARKER
         // ----------------------------------------------------
 
         const accidentIcon =
@@ -875,51 +985,62 @@ document.addEventListener("DOMContentLoaded", () => {
                     "custom-accident-marker",
 
                 html: `
+
                     <div class="accident-marker">
                         !
                     </div>
+
                 `,
 
                 iconSize: [
+
                     42,
+
                     42
+
                 ],
 
                 iconAnchor: [
+
                     21,
+
                     21
+
                 ],
 
                 popupAnchor: [
+
                     0,
+
                     -22
+
                 ]
 
             });
 
 
-        // ----------------------------------------------------
-        // MARKER
-        // ----------------------------------------------------
-
         accidentMarker =
             L.marker(
+
                 [
+
                     accidentLocation.latitude,
+
                     accidentLocation.longitude
+
                 ],
+
                 {
+
                     icon: accidentIcon
+
                 }
+
             )
             .addTo(
                 accidentMap
             );
 
-
-        // ----------------------------------------------------
-        // POPUP
-        // ----------------------------------------------------
 
         accidentMarker.bindPopup(
             createAccidentPopup()
@@ -928,10 +1049,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         accidentMarker.openPopup();
 
-
-        // ----------------------------------------------------
-        // MAP SIZE FIX
-        // ----------------------------------------------------
 
         setTimeout(() => {
 
@@ -959,21 +1076,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span>
                     Vehicle:
                     <b>
-                        V-001
+                        ${
+                            window.currentVehicleId ||
+                            "Unknown"
+                        }
                     </b>
                 </span>
 
                 <span>
-                    Accident:
+                    Status:
                     <b>
-                        ACTIVE
-                    </b>
-                </span>
-
-                <span>
-                    Severity:
-                    <b>
-                        HIGH
+                        ${incidentStatus}
                     </b>
                 </span>
 
@@ -999,7 +1112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // CENTER ACCIDENT
+    // CENTER MAP
     // ========================================================
 
     window.centerAccidentLocation =
@@ -1032,11 +1145,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             accidentMap.setView(
+
                 position,
+
                 17,
+
                 {
+
                     animate: true
+
                 }
+
             );
 
 
@@ -1046,7 +1165,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // UPDATE ACCIDENT GPS
+    // UPDATE GPS
     // ========================================================
 
     window.updateAccidentLocation =
@@ -1116,6 +1235,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const newPosition = [
 
                 lat,
+
                 lng
 
             ];
@@ -1136,18 +1256,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             accidentMap.setView(
+
                 newPosition,
+
                 17,
+
                 {
+
                     animate: true
+
                 }
+
             );
 
         };
 
 
     // ========================================================
-    // UPDATE COORDINATES
+    // COORDINATE DISPLAY
     // ========================================================
 
     function updateCoordinateDisplay() {
@@ -1205,9 +1331,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             window.open(
+
                 url,
+
                 "_blank",
+
                 "noopener,noreferrer"
+
             );
 
         };
@@ -1254,7 +1384,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // PROCESS RESPONSE
+    // PROCESS INCIDENT RESPONSE
     // ========================================================
 
     async function processResponse() {
@@ -1279,7 +1409,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const response =
                 await fetch(
+
                     `${BACKEND_URL}/api/accidents/current/status`,
+
                     {
 
                         method: "PATCH",
@@ -1299,6 +1431,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         })
 
                     }
+
                 );
 
 
@@ -1309,8 +1442,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
 
                 throw new Error(
+
                     data.message ||
                     "Failed to update incident."
+
                 );
 
             }
@@ -1354,7 +1489,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             showMessage(
+
                 `Incident status updated to ${state.name}.`
+
             );
 
         }
@@ -1362,13 +1499,18 @@ document.addEventListener("DOMContentLoaded", () => {
         catch (error) {
 
             console.error(
+
                 "Status update failed:",
+
                 error
+
             );
 
 
             showMessage(
+
                 "Unable to update incident status."
+
             );
 
         }
@@ -1385,7 +1527,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         if (!liveRespondButton) {
+
             return;
+
         }
 
 
@@ -1454,60 +1598,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     }
 
-
-                    const status =
-                        item.querySelector(
-                            "span"
-                        );
-
-
-                    if (status) {
-
-                        switch (index) {
-
-                            case 0:
-
-                                status.textContent =
-                                    "10:42:16 PM";
-
-                                break;
-
-
-                            case 1:
-
-                                status.textContent =
-                                    "Department acknowledged";
-
-                                break;
-
-
-                            case 2:
-
-                                status.textContent =
-                                    "Response dispatched";
-
-                                break;
-
-
-                            case 3:
-
-                                status.textContent =
-                                    "Team arrived at location";
-
-                                break;
-
-
-                            case 4:
-
-                                status.textContent =
-                                    "Incident resolved";
-
-                                break;
-
-                        }
-
-                    }
-
                 }
 
             }
@@ -1531,7 +1621,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (!badge) {
+
             return;
+
         }
 
 
@@ -1561,7 +1653,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================================
-    // DASHBOARD INCIDENT STATUS
+    // DASHBOARD INCIDENT
     // ========================================================
 
     function updateDashboardIncident(
@@ -1581,7 +1673,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (!badge) {
+
             return;
+
         }
 
 
@@ -1617,7 +1711,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
 
 
-            case "ON_SCENE":
+            case "ON SCENE":
 
                 badge.textContent =
                     "● ON SCENE";
@@ -1637,16 +1731,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge.textContent =
                     "● RESOLVED";
 
-
                 if (button) {
 
                     button.textContent =
                         "✓ INCIDENT RESOLVED";
 
-
                     button.disabled =
                         true;
-
 
                     button.style.opacity =
                         "0.55";
@@ -1670,6 +1761,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         incidentStatus =
             "ACTIVE";
+
+        lastAccidentId =
+            null;
 
 
         if (liveRespondButton) {
@@ -1730,22 +1824,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         index === 0
                             ? "✓"
                             : index + 1;
-
-                }
-
-
-                const status =
-                    item.querySelector(
-                        "span"
-                    );
-
-
-                if (status) {
-
-                    status.textContent =
-                        index === 0
-                            ? "10:42:16 PM"
-                            : "Waiting";
 
                 }
 
@@ -1840,19 +1918,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const response =
                 await fetch(
+
                     `${BACKEND_URL}/api/accidents/current`,
+
                     {
 
                         cache: "no-store"
 
                     }
+
                 );
 
 
             if (!response.ok) {
 
                 throw new Error(
+
                     `Backend returned ${response.status}`
+
                 );
 
             }
@@ -1882,7 +1965,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // ------------------------------------------------
-            // NEW ACCIDENT DETECTION
+            // NEW ACCIDENT
             // ------------------------------------------------
 
             if (
@@ -1894,16 +1977,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     accidentId;
 
 
+                triggerEmergencyAlert();
+
+
                 showMessage(
+
                     `🚨 New accident detected — ${
                         accident.vehicle_id ||
                         accident.vehicleId ||
                         "Unknown Vehicle"
                     }`
+
                 );
-
-
-                triggerEmergencyAlert();
 
             }
 
@@ -1913,8 +1998,11 @@ document.addEventListener("DOMContentLoaded", () => {
             // ------------------------------------------------
 
             updateAccidentLocation(
+
                 accident.latitude,
+
                 accident.longitude
+
             );
 
 
@@ -1953,14 +2041,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 accident.status
             );
 
-
         }
 
         catch (error) {
 
             console.error(
+
                 "Backend connection failed:",
+
                 error
+
             );
 
         }
@@ -1982,8 +2072,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (!vehicleId) {
+
             return;
+
         }
+
+
+        window.currentVehicleId =
+            vehicleId;
 
 
         const vehicleDetails =
@@ -2017,6 +2113,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
+        if (accidentMarker) {
+
+            accidentMarker.setPopupContent(
+                createAccidentPopup()
+            );
+
+        }
+
     }
 
 
@@ -2029,7 +2134,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         if (!impact) {
+
             return;
+
         }
 
 
@@ -2103,9 +2210,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         console.log(
+
             "Accident speed:",
+
             speed,
+
             "km/h"
+
         );
 
     }
@@ -2120,7 +2231,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         if (!status) {
+
             return;
+
         }
 
 
@@ -2145,8 +2258,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const stateIndex =
             responseStates.findIndex(
+
                 state =>
-                    state.name === normalized
+                    state.name ===
+                    normalized
+
             );
 
 
@@ -2198,7 +2314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         stopAccidentMonitoring();
 
 
-        // First check immediately
+        // First check
 
         loadCurrentAccident();
 
@@ -2207,6 +2323,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         accidentMonitor =
             setInterval(
+
                 () => {
 
                     if (loggedIn) {
@@ -2216,7 +2333,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                 },
+
                 3000
+
             );
 
     }
@@ -2255,6 +2374,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         setTimeout(
+
             () => {
 
                 document.body.classList.remove(
@@ -2262,7 +2382,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             },
+
             1200
+
         );
 
     }
@@ -2283,7 +2405,9 @@ document.addEventListener("DOMContentLoaded", () => {
         () => {
 
             showMessage(
+
                 "Full accident history will be connected to the database."
+
             );
 
         }
@@ -2311,7 +2435,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             section?.scrollIntoView({
+
                 behavior: "smooth"
+
             });
 
         }
@@ -2333,7 +2459,9 @@ document.addEventListener("DOMContentLoaded", () => {
         () => {
 
             showMessage(
-                "Department registration will be connected to the secure backend."
+
+                "Department registration will be added in a future version."
+
             );
 
         }
@@ -2373,7 +2501,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 showMessage(
+
                     `${vehicle}: ${incident}`
+
                 );
 
             }
@@ -2454,6 +2584,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         setTimeout(
+
             () => {
 
                 if (
@@ -2465,7 +2596,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             },
+
             4500
+
         );
 
     }
