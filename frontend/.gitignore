@@ -1,0 +1,21 @@
+# Environment variables
+.env
+
+# Node
+node_modules/
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/

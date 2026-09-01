@@ -1,0 +1,2880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Accident Alert Emergency Response System"
+    >
+
+    <title>Accident Alert | Emergency Response System</title>
+
+
+    <!-- =====================================================
+         YOUR CSS
+         ===================================================== -->
+
+    <link rel="stylesheet" href="style.css">
+
+
+    <!-- =====================================================
+         LEAFLET MAP CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfQ3tHym6R7g0Z4X5jLJxQmL7ZQ0Gf8="
+        crossorigin=""
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LANDING PAGE
+     ========================================================= -->
+
+<div id="landingPage">
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="navbar">
+
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <span>!</span>
+            </div>
+
+            <div>
+
+                <h2>
+                    ACCIDENT ALERT
+                </h2>
+
+                <p>
+                    Emergency Response Portal
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#departments">
+                Departments
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+            <a href="#telegram">
+                Alerts
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </nav>
+
+
+        <div class="nav-buttons">
+
+            <button
+                class="login-btn"
+                type="button"
+            >
+                Login
+            </button>
+
+
+            <button
+                class="register-btn"
+                type="button"
+            >
+                Register
+            </button>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO SECTION
+         ===================================================== -->
+
+    <main id="home">
+
+
+        <section class="hero">
+
+
+            <!-- HERO CONTENT -->
+
+            <div class="hero-content">
+
+
+                <div class="badge">
+
+                    <span class="pulse"></span>
+
+                    EMERGENCY RESPONSE SYSTEM
+
+                </div>
+
+
+                <h1>
+
+                    Detect Accidents.<br>
+
+                    <span>
+                        Save Lives.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-text">
+
+                    An intelligent accident alert system designed
+                    to detect road accidents, identify critical
+                    situations and instantly notify emergency
+                    response departments for faster assistance.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+
+                    <button
+                        class="primary-btn"
+                        type="button"
+                    >
+
+                        Access Emergency Portal
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="secondary-btn"
+                        type="button"
+                    >
+
+                        Explore System
+
+                    </button>
+
+
+                </div>
+
+
+                <div class="trusted">
+
+                    <span>
+                        ●
+                    </span>
+
+                    Connected Emergency Network
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- HERO DASHBOARD -->
+
+            <div class="hero-dashboard">
+
+
+                <div class="panel-header">
+
+
+                    <div>
+
+                        <p class="small-label">
+                            EMERGENCY NETWORK
+                        </p>
+
+
+                        <h3>
+                            Today's Status
+                        </h3>
+
+                    </div>
+
+
+                    <div class="online">
+
+                        <span></span>
+
+                        ONLINE
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- STATUS GRID -->
+
+                <div class="status-grid">
+
+
+                    <div class="status-box">
+
+                        <div class="status-icon cyan">
+                            ◉
+                        </div>
+
+                        <p>
+                            VEHICLES MONITORED
+                        </p>
+
+                        <strong>
+                            24
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <div class="status-icon orange">
+                            !
+                        </div>
+
+                        <p>
+                            ALERTS TODAY
+                        </p>
+
+                        <strong>
+                            08
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-box danger">
+
+                        <div class="status-icon red">
+                            !
+                        </div>
+
+                        <p>
+                            ACTIVE ACCIDENTS
+                        </p>
+
+                        <strong>
+                            01
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <div class="status-icon green">
+                            ✓
+                        </div>
+
+                        <p>
+                            RESOLVED
+                        </p>
+
+                        <strong>
+                            27
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ACTIVE ALERT -->
+
+                <div class="active-alert">
+
+
+                    <div class="alert-title">
+
+
+                        <div>
+
+                            <span class="danger-dot"></span>
+
+                            ACTIVE EMERGENCY
+
+                        </div>
+
+
+                        <span>
+                            10:42 PM
+                        </span>
+
+
+                    </div>
+
+
+                    <h3>
+                        High Impact Accident
+                    </h3>
+
+
+                    <div class="alert-details">
+
+
+                        <div>
+
+                            <span>
+                                Vehicle
+                            </span>
+
+
+                            <strong>
+                                V-001
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Severity
+                            </span>
+
+
+                            <strong class="high">
+                                HIGH
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Location
+                            </span>
+
+
+                            <strong>
+                                GPS Available
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button
+                        class="alert-btn"
+                        type="button"
+                    >
+
+                        View Emergency Details →
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             EMERGENCY DEPARTMENTS
+             ===================================================== -->
+
+        <section
+            class="departments"
+            id="departments"
+        >
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <p class="section-label">
+                        EMERGENCY NETWORK
+                    </p>
+
+
+                    <h2>
+
+                        One Alert.<br>
+
+                        <span>
+                            Multiple Responders.
+                        </span>
+
+                    </h2>
+
+                </div>
+
+
+                <p>
+
+                    Accident information can reach the
+                    appropriate emergency departments
+                    simultaneously, enabling faster
+                    coordination and response.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="department-grid">
+
+
+                <!-- POLICE -->
+
+                <div class="department-card">
+
+
+                    <div class="department-icon">
+                        👮
+                    </div>
+
+
+                    <h3>
+                        Police
+                    </h3>
+
+
+                    <p>
+
+                        Receive accident information,
+                        incident details and location
+                        for immediate law-enforcement
+                        response.
+
+                    </p>
+
+
+                    <span class="available">
+                        ● Available
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- HOSPITAL -->
+
+                <div class="department-card">
+
+
+                    <div class="department-icon">
+                        🏥
+                    </div>
+
+
+                    <h3>
+                        Hospitals
+                    </h3>
+
+
+                    <p>
+
+                        Receive emergency information
+                        to prepare medical assistance
+                        for accident victims.
+
+                    </p>
+
+
+                    <span class="available">
+                        ● Available
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- AMBULANCE -->
+
+                <div class="department-card">
+
+
+                    <div class="department-icon">
+                        🚑
+                    </div>
+
+
+                    <h3>
+                        Ambulance
+                    </h3>
+
+
+                    <p>
+
+                        Access accident coordinates
+                        and respond quickly to the
+                        emergency location.
+
+                    </p>
+
+
+                    <span class="available">
+                        ● Available
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- FIRE -->
+
+                <div class="department-card">
+
+
+                    <div class="department-icon">
+                        🚒
+                    </div>
+
+
+                    <h3>
+                        Fire & Rescue
+                    </h3>
+
+
+                    <p>
+
+                        Receive critical alerts when
+                        rescue or emergency assistance
+                        is required.
+
+                    </p>
+
+
+                    <span class="available">
+                        ● Available
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             HOW IT WORKS
+             ===================================================== -->
+
+        <section
+            class="how-it-works"
+            id="how-it-works"
+        >
+
+
+            <div class="center-heading">
+
+
+                <p class="section-label">
+                    HOW IT WORKS
+                </p>
+
+
+                <h2>
+
+                    From Detection<br>
+
+                    <span>
+                        to Response.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    A connected emergency workflow designed
+                    to reduce the time between accident
+                    detection and emergency response.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+
+                    <div class="step-line"></div>
+
+
+                    <h3>
+                        Detect
+                    </h3>
+
+
+                    <p>
+
+                        Sensors continuously monitor
+                        the vehicle and identify abnormal
+                        impact conditions.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="step">
+
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+
+                    <div class="step-line"></div>
+
+
+                    <h3>
+                        Analyze
+                    </h3>
+
+
+                    <p>
+
+                        The controller evaluates sensor
+                        data to determine whether an
+                        accident has occurred.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="step">
+
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+
+                    <div class="step-line"></div>
+
+
+                    <h3>
+                        Alert
+                    </h3>
+
+
+                    <p>
+
+                        Accident information and GPS
+                        location are sent to the
+                        emergency response network.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="step">
+
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+
+                    <h3>
+                        Respond
+                    </h3>
+
+
+                    <p>
+
+                        Emergency departments receive
+                        the alert and coordinate the
+                        appropriate response.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TELEGRAM
+             ===================================================== -->
+
+        <section
+            class="telegram-section"
+            id="telegram"
+        >
+
+
+            <div class="telegram-content">
+
+
+                <div class="telegram-icon">
+                    ✈
+                </div>
+
+
+                <div>
+
+
+                    <p class="section-label">
+                        INSTANT NOTIFICATION
+                    </p>
+
+
+                    <h2>
+
+                        Emergency alerts,<br>
+
+                        <span>
+                            wherever they are needed.
+                        </span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Telegram notifications can deliver
+                        the same accident alert to emergency
+                        departments, designated emergency
+                        contacts and family members for
+                        immediate awareness.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="telegram-status">
+
+
+                <span class="telegram-live"></span>
+
+                TELEGRAM ALERT CHANNEL
+
+
+                <strong>
+                    ACTIVE
+                </strong>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             ABOUT
+             ===================================================== -->
+
+        <section
+            class="about-section"
+            id="about"
+        >
+
+
+            <div class="center-heading">
+
+
+                <p class="section-label">
+                    ABOUT THE SYSTEM
+                </p>
+
+
+                <h2>
+
+                    Technology for<br>
+
+                    <span>
+                        Faster Emergency Response.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Accident Alert connects vehicle-based
+                    accident detection with emergency
+                    communication channels, helping
+                    responders receive critical information
+                    as quickly as possible.
+
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+
+        <footer>
+
+
+            <div class="footer-logo">
+
+
+                <div class="logo-icon">
+                    <span>!</span>
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        ACCIDENT ALERT
+                    </h3>
+
+
+                    <p>
+                        Emergency Response System
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <p>
+
+                Designed for faster accident detection,
+                notification and emergency response.
+
+            </p>
+
+
+            <div class="copyright">
+
+                © 2026 Accident Alert System.
+                SRP Project.
+
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     LOGIN MODAL
+     ========================================================= -->
+
+<div
+    class="login-modal"
+    id="loginModal"
+>
+
+
+    <div class="login-box">
+
+
+        <button
+            class="close-login"
+            id="closeLogin"
+            type="button"
+            aria-label="Close login"
+        >
+            ×
+        </button>
+
+
+        <div class="login-symbol">
+            !
+        </div>
+
+
+        <h2>
+            Emergency Portal
+        </h2>
+
+
+        <p>
+            Authorized department access
+        </p>
+
+
+
+        <form id="loginForm">
+
+
+            <label for="department">
+                Department
+            </label>
+
+
+            <select
+                id="department"
+                required
+            >
+
+                <option value="">
+                    Select Department
+                </option>
+
+
+                <option value="Police">
+                    Police
+                </option>
+
+
+                <option value="Hospital">
+                    Hospital
+                </option>
+
+
+                <option value="Ambulance">
+                    Ambulance
+                </option>
+
+
+                <option value="Fire & Rescue">
+                    Fire & Rescue
+                </option>
+
+
+                <option value="Emergency Services">
+                    Emergency Services
+                </option>
+
+            </select>
+
+
+
+            <label for="departmentId">
+                Department ID
+            </label>
+
+
+            <input
+                type="text"
+                id="departmentId"
+                placeholder="Enter department ID"
+                required
+            >
+
+
+
+            <label for="password">
+                Password
+            </label>
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                required
+            >
+
+
+
+            <div
+                id="loginError"
+                class="login-error"
+            >
+            </div>
+
+
+
+            <button
+                type="submit"
+                class="login-submit"
+            >
+
+                ACCESS EMERGENCY PORTAL →
+
+            </button>
+
+
+        </form>
+
+
+
+        <div class="secure-login">
+
+            🔒 Secure emergency department access
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     EMERGENCY DASHBOARD
+     ========================================================= -->
+
+<div
+    id="dashboardPage"
+    class="dashboard-page"
+    style="display:none;"
+>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+
+        <div class="dashboard-logo">
+
+
+            <div class="logo-icon">
+                !
+            </div>
+
+
+            <div>
+
+                <strong>
+                    ACCIDENT ALERT
+                </strong>
+
+
+                <small>
+                    Emergency Portal
+                </small>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DEPARTMENT PROFILE -->
+
+        <div class="department-profile">
+
+
+            <div class="profile-icon">
+                🛡
+            </div>
+
+
+            <div>
+
+                <span>
+                    LOGGED IN AS
+                </span>
+
+
+                <strong id="departmentName">
+                    Emergency Department
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DASHBOARD NAVIGATION -->
+
+        <nav class="dashboard-nav">
+
+
+            <a
+                href="#"
+                class="active"
+                data-page="dashboard"
+            >
+
+                <span>
+                    ▦
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="#"
+                data-page="live-alerts"
+            >
+
+                <span>
+                    🚨
+                </span>
+
+                Live Alerts
+
+                <b>
+                    01
+                </b>
+
+            </a>
+
+
+            <a
+                href="#"
+                data-page="map"
+            >
+
+                <span>
+                    📍
+                </span>
+
+                Accident Map
+
+            </a>
+
+
+            <a
+                href="#"
+                data-page="history"
+            >
+
+                <span>
+                    📋
+                </span>
+
+                Accident History
+
+            </a>
+
+
+            <a
+                href="#"
+                data-page="contacts"
+            >
+
+                <span>
+                    👥
+                </span>
+
+                Emergency Contacts
+
+            </a>
+
+
+            <a
+                href="#"
+                data-page="reports"
+            >
+
+                <span>
+                    📊
+                </span>
+
+                Reports
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <a href="#">
+                ⚙ Settings
+            </a>
+
+
+            <button
+                id="logoutButton"
+                type="button"
+            >
+
+                ↪ Logout
+
+            </button>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+
+            <div>
+
+                <span class="dashboard-label">
+                    EMERGENCY CONTROL CENTER
+                </span>
+
+
+                <h1>
+                    Emergency Dashboard
+                </h1>
+
+
+                <p>
+
+                    Monitor and respond to accident incidents
+                    in real time.
+
+                </p>
+
+
+            </div>
+
+
+            <div class="dashboard-status">
+
+                <span></span>
+
+                SYSTEM OPERATIONAL
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             STATISTICS
+             ================================================= -->
+
+        <section class="dashboard-stats">
+
+
+            <div class="dash-stat">
+
+
+                <span>
+                    ACTIVE ACCIDENTS
+                </span>
+
+
+                <strong class="red-text">
+                    01
+                </strong>
+
+
+                <small>
+                    Requires immediate response
+                </small>
+
+
+            </div>
+
+
+
+            <div class="dash-stat">
+
+
+                <span>
+                    ALERTS TODAY
+                </span>
+
+
+                <strong>
+                    08
+                </strong>
+
+
+                <small>
+                    +3 from yesterday
+                </small>
+
+
+            </div>
+
+
+
+            <div class="dash-stat">
+
+
+                <span>
+                    RESPONSES
+                </span>
+
+
+                <strong>
+                    06
+                </strong>
+
+
+                <small>
+                    Currently dispatched
+                </small>
+
+
+            </div>
+
+
+
+            <div class="dash-stat">
+
+
+                <span>
+                    RESOLVED
+                </span>
+
+
+                <strong class="green-text">
+                    27
+                </strong>
+
+
+                <small>
+                    Successfully handled
+                </small>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACTIVE INCIDENT
+             ================================================= -->
+
+        <section class="incident-section">
+
+
+            <div class="section-title-row">
+
+
+                <div>
+
+                    <span>
+                        PRIORITY INCIDENT
+                    </span>
+
+
+                    <h2>
+                        Active Accident
+                    </h2>
+
+                </div>
+
+
+                <div class="critical-badge">
+
+                    ● CRITICAL
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="incident-card">
+
+
+                <!-- INCIDENT -->
+
+                <div class="incident-main">
+
+
+                    <div class="incident-heading">
+
+
+                        <div class="incident-warning">
+                            !
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                High Impact Accident
+                            </h2>
+
+
+                            <p>
+
+                                Accident detected by vehicle
+                                monitoring system
+
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="incident-info">
+
+
+                        <div>
+
+                            <span>
+                                VEHICLE
+                            </span>
+
+
+                            <strong>
+                                V-001
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                TIME
+                            </span>
+
+
+                            <strong>
+                                10:42 PM
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                IMPACT
+                            </span>
+
+
+                            <strong class="red-text">
+                                HIGH
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                GPS
+                            </span>
+
+
+                            <strong class="green-text">
+                                RECEIVED
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="incident-actions">
+
+
+                        <button
+                            class="respond-btn"
+                            type="button"
+                        >
+
+                            🚑 RESPOND TO INCIDENT
+
+                        </button>
+
+
+                        <button
+                            class="map-btn"
+                            type="button"
+                        >
+
+                            📍 VIEW LOCATION
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- DASHBOARD MAP PREVIEW -->
+
+                <div class="incident-map">
+
+
+                    <div class="map-grid">
+
+
+                        <div class="map-pin">
+                            📍
+                        </div>
+
+
+                        <span>
+                            ACCIDENT LOCATION
+                        </span>
+
+
+                        <small>
+                            GPS coordinates received
+                        </small>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESPONSE NETWORK
+             ================================================= -->
+
+        <section class="response-network">
+
+
+            <div class="section-title-row">
+
+
+                <div>
+
+                    <span>
+                        RESPONSE NETWORK
+                    </span>
+
+
+                    <h2>
+                        Emergency Departments
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="response-grid">
+
+
+                <div class="response-card">
+
+
+                    <div class="response-icon">
+                        👮
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Police
+                        </h3>
+
+
+                        <p>
+                            8 units available
+                        </p>
+
+                    </div>
+
+
+                    <span class="online-dot"></span>
+
+
+                </div>
+
+
+
+                <div class="response-card">
+
+
+                    <div class="response-icon">
+                        🏥
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Hospitals
+                        </h3>
+
+
+                        <p>
+                            12 hospitals online
+                        </p>
+
+                    </div>
+
+
+                    <span class="online-dot"></span>
+
+
+                </div>
+
+
+
+                <div class="response-card">
+
+
+                    <div class="response-icon">
+                        🚑
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Ambulance
+                        </h3>
+
+
+                        <p>
+                            15 units available
+                        </p>
+
+                    </div>
+
+
+                    <span class="online-dot"></span>
+
+
+                </div>
+
+
+
+                <div class="response-card">
+
+
+                    <div class="response-icon">
+                        🚒
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Fire & Rescue
+                        </h3>
+
+
+                        <p>
+                            6 units available
+                        </p>
+
+                    </div>
+
+
+                    <span class="online-dot"></span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT ALERTS
+             ================================================= -->
+
+        <section class="recent-section">
+
+
+            <div class="section-title-row">
+
+
+                <div>
+
+                    <span>
+                        INCIDENT ACTIVITY
+                    </span>
+
+
+                    <h2>
+                        Recent Alerts
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="view-all"
+                    type="button"
+                >
+
+                    View All →
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="recent-table">
+
+
+                <div class="table-row table-head">
+
+
+                    <span>
+                        VEHICLE
+                    </span>
+
+
+                    <span>
+                        INCIDENT
+                    </span>
+
+
+                    <span>
+                        TIME
+                    </span>
+
+
+                    <span>
+                        SEVERITY
+                    </span>
+
+
+                    <span>
+                        STATUS
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="table-row">
+
+
+                    <strong>
+                        V-001
+                    </strong>
+
+
+                    <span>
+                        High impact accident
+                    </span>
+
+
+                    <span>
+                        10:42 PM
+                    </span>
+
+
+                    <b class="critical">
+                        CRITICAL
+                    </b>
+
+
+                    <b class="pending">
+                        ACTIVE
+                    </b>
+
+
+                </div>
+
+
+
+                <div class="table-row">
+
+
+                    <strong>
+                        V-014
+                    </strong>
+
+
+                    <span>
+                        Accident detected
+                    </span>
+
+
+                    <span>
+                        09:31 PM
+                    </span>
+
+
+                    <b class="medium">
+                        MEDIUM
+                    </b>
+
+
+                    <b class="resolved">
+                        RESOLVED
+                    </b>
+
+
+                </div>
+
+
+
+                <div class="table-row">
+
+
+                    <strong>
+                        V-008
+                    </strong>
+
+
+                    <span>
+                        Possible collision
+                    </span>
+
+
+                    <span>
+                        08:16 PM
+                    </span>
+
+
+                    <b class="medium">
+                        MEDIUM
+                    </b>
+
+
+                    <b class="responded">
+                        RESPONDED
+                    </b>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         LIVE ACCIDENT ALERT PAGE
+         ===================================================== -->
+
+    <section
+        id="liveAlertPage"
+        class="live-alert-page"
+    >
+
+
+        <!-- LIVE HEADER -->
+
+        <div class="live-alert-header">
+
+
+            <div>
+
+                <span class="dashboard-label">
+                    LIVE EMERGENCY MONITOR
+                </span>
+
+
+                <h1>
+                    Active Accident Alert
+                </h1>
+
+
+                <p>
+
+                    Real-time accident information and
+                    emergency response status.
+
+                </p>
+
+            </div>
+
+
+            <div class="critical-live">
+
+
+                <span></span>
+
+                LIVE INCIDENT
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- MAJOR ALERT -->
+
+        <div class="major-alert-banner">
+
+
+            <div class="major-alert-icon">
+                !
+            </div>
+
+
+            <div class="major-alert-content">
+
+
+                <span>
+                    CRITICAL EMERGENCY
+                </span>
+
+
+                <h2>
+                    High Impact Accident Detected
+                </h2>
+
+
+                <p>
+
+                    Accident detected automatically by the
+                    vehicle monitoring system.
+
+                </p>
+
+
+            </div>
+
+
+            <div class="alert-time">
+
+
+                <span>
+                    DETECTED
+                </span>
+
+
+                <strong>
+                    10:42:16 PM
+                </strong>
+
+
+                <small>
+                    30 Aug 2026
+                </small>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- LIVE CONTENT GRID -->
+
+        <div class="live-alert-grid">
+
+
+            <!-- =================================================
+                 LEFT COLUMN
+                 ================================================= -->
+
+            <div class="live-main-column">
+
+
+                <!-- VEHICLE INFORMATION -->
+
+                <div class="live-card">
+
+
+                    <div class="live-card-title">
+
+
+                        <div>
+
+                            <span>
+                                VEHICLE INFORMATION
+                            </span>
+
+
+                            <h2>
+                                Vehicle V-001
+                            </h2>
+
+                        </div>
+
+
+                        <div class="vehicle-status">
+
+                            ● CONNECTED
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="vehicle-details">
+
+
+                        <div>
+
+                            <span>
+                                VEHICLE ID
+                            </span>
+
+
+                            <strong>
+                                V-001
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                ACCIDENT ID
+                            </span>
+
+
+                            <strong>
+                                ACC-2026-001
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                IMPACT
+                            </span>
+
+
+                            <strong class="danger-text">
+                                HIGH
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                GPS
+                            </span>
+
+
+                            <strong class="success-text">
+                                RECEIVED
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- SENSOR INFORMATION -->
+
+                <div class="live-card">
+
+
+                    <div class="live-card-title">
+
+
+                        <div>
+
+                            <span>
+                                SENSOR INFORMATION
+                            </span>
+
+
+                            <h2>
+                                Detection Data
+                            </h2>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="sensor-grid">
+
+
+                        <div class="sensor-item">
+
+
+                            <div class="sensor-icon">
+                                ⚡
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    ACCELEROMETER
+                                </span>
+
+
+                                <strong>
+                                    HIGH IMPACT
+                                </strong>
+
+                            </div>
+
+
+                            <b class="sensor-danger">
+                                ALERT
+                            </b>
+
+
+                        </div>
+
+
+
+                        <div class="sensor-item">
+
+
+                            <div class="sensor-icon">
+                                ◉
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    GYROSCOPE
+                                </span>
+
+
+                                <strong>
+                                    ABNORMAL
+                                </strong>
+
+                            </div>
+
+
+                            <b class="sensor-danger">
+                                ALERT
+                            </b>
+
+
+                        </div>
+
+
+
+                        <div class="sensor-item">
+
+
+                            <div class="sensor-icon">
+                                📍
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    GPS MODULE
+                                </span>
+
+
+                                <strong>
+                                    LOCATION RECEIVED
+                                </strong>
+
+                            </div>
+
+
+                            <b class="sensor-success">
+                                OK
+                            </b>
+
+
+                        </div>
+
+
+
+                        <div class="sensor-item">
+
+
+                            <div class="sensor-icon">
+                                📡
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    COMMUNICATION
+                                </span>
+
+
+                                <strong>
+                                    CONNECTED
+                                </strong>
+
+                            </div>
+
+
+                            <b class="sensor-success">
+                                OK
+                            </b>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     REAL MAP
+                     ================================================= -->
+
+                <div class="live-card location-card">
+
+
+                    <div class="live-card-title">
+
+
+                        <div>
+
+                            <span>
+                                LOCATION
+                            </span>
+
+
+                            <h2>
+                                Accident Location
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            class="open-map-button"
+                            type="button"
+                        >
+
+                            CENTER MAP →
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- REAL LEAFLET MAP -->
+
+                    <div
+                        id="accidentMap"
+                        class="large-map"
+                    >
+                    </div>
+
+
+
+                    <!-- MAP CONTROLS -->
+
+                    <div class="map-controls">
+
+
+                        <button
+                            class="map-control-button"
+                            type="button"
+                            onclick="centerAccidentLocation()"
+                        >
+
+                            📍 CENTER ACCIDENT
+
+                        </button>
+
+
+                        <button
+                            class="map-control-button"
+                            type="button"
+                            onclick="openGoogleMaps()"
+                        >
+
+                            🧭 OPEN DIRECTIONS
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- COORDINATES -->
+
+                    <div class="coordinates">
+
+
+                        <div>
+
+                            <span>
+                                LATITUDE
+                            </span>
+
+
+                            <strong id="latitudeValue">
+                                17.385000°
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                LONGITUDE
+                            </span>
+
+
+                            <strong id="longitudeValue">
+                                78.486700°
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                GPS ACCURACY
+                            </span>
+
+
+                            <strong>
+                                ±5 m
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RIGHT COLUMN
+                 ================================================= -->
+
+            <div class="live-side-column">
+
+
+                <!-- RESPONSE STATUS -->
+
+                <div class="live-card response-status-card">
+
+
+                    <div class="live-card-title">
+
+
+                        <div>
+
+                            <span>
+                                RESPONSE
+                            </span>
+
+
+                            <h2>
+                                Incident Status
+                            </h2>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="response-timeline">
+
+
+                        <!-- DETECTED -->
+
+                        <div class="timeline-item active">
+
+
+                            <div class="timeline-dot">
+                                ✓
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Accident Detected
+                                </strong>
+
+
+                                <span>
+                                    10:42:16 PM
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ACKNOWLEDGED -->
+
+                        <div class="timeline-item">
+
+
+                            <div class="timeline-dot">
+                                2
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Department Acknowledged
+                                </strong>
+
+
+                                <span>
+                                    Waiting
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- DISPATCHED -->
+
+                        <div class="timeline-item">
+
+
+                            <div class="timeline-dot">
+                                3
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Response Dispatched
+                                </strong>
+
+
+                                <span>
+                                    Waiting
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ON SCENE -->
+
+                        <div class="timeline-item">
+
+
+                            <div class="timeline-dot">
+                                4
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Team On Scene
+                                </strong>
+
+
+                                <span>
+                                    Waiting
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- RESOLVED -->
+
+                        <div class="timeline-item">
+
+
+                            <div class="timeline-dot">
+                                5
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Incident Resolved
+                                </strong>
+
+
+                                <span>
+                                    Waiting
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <button
+                        class="large-respond-button"
+                        id="liveRespondButton"
+                        type="button"
+                    >
+
+                        ✓ ACKNOWLEDGE INCIDENT
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="live-card">
+
+
+                    <div class="live-card-title">
+
+
+                        <div>
+
+                            <span>
+                                ALERT DISTRIBUTION
+                            </span>
+
+
+                            <h2>
+                                Notifications
+                            </h2>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="notification-status">
+
+
+                        <div>
+
+                            <span>
+                                👮 Police
+                            </span>
+
+
+                            <b>
+                                ✓ SENT
+                            </b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                🏥 Hospital
+                            </span>
+
+
+                            <b>
+                                ✓ SENT
+                            </b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                🚑 Ambulance
+                            </span>
+
+
+                            <b>
+                                ✓ SENT
+                            </b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                🚒 Fire & Rescue
+                            </span>
+
+
+                            <b>
+                                ✓ SENT
+                            </b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                ✈ Telegram
+                            </span>
+
+
+                            <b>
+                                ✓ SENT
+                            </b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                👨‍👩‍👦 Family
+                            </span>
+
+
+                            <b>
+                                ✓ SENT
+                            </b>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FAMILY NOTIFICATION -->
+
+                <div class="live-card emergency-contact">
+
+
+                    <span>
+                        EMERGENCY CONTACT
+                    </span>
+
+
+                    <h2>
+                        Family Notification
+                    </h2>
+
+
+                    <p>
+
+                        Designated emergency contacts have
+                        been notified through Telegram.
+
+                    </p>
+
+
+                    <div class="contact-status">
+
+                        ✓ Notification Sent
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     LEAFLET MAP JAVASCRIPT
+     ========================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+</script>
+
+
+<!-- =========================================================
+     YOUR JAVASCRIPT    
+     
+     ========================================================= -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
