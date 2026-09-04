@@ -1,19 +1,15 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "accident-alert-system-backend",
+  "version": "2.0.0",
+  "description": "Accident Alert System Backend using Node.js, Express and PostgreSQL",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "better-sqlite3": "^13.0.3",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "pg": "^8.23.0"
   }
 }

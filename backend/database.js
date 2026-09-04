@@ -1,156 +1,160 @@
-const Database = require("better-sqlite3");
-const path = require("path");
-
 // ============================================================
-// DATABASE FILE
+// ACCIDENT ALERT SYSTEM
+// PostgreSQL Database Connection
+// Works with LOCAL PostgreSQL + RENDER PostgreSQL
 // ============================================================
 
-const dbPath = path.join(
-    __dirname,
-    "accident.db"
-);
-
-const db = new Database(dbPath);
+const { Pool } = require("pg");
+require("dotenv").config();
 
 
 // ============================================================
-// ENABLE WAL MODE
+// DATABASE CONNECTION
 // ============================================================
 
-db.pragma("journal_mode = WAL");
+let pool;
 
+if (process.env.DATABASE_URL) {
 
-// ============================================================
-// CREATE ACCIDENTS TABLE
-// ============================================================
+    // --------------------------------------------------------
+    // RENDER POSTGRESQL
+    // --------------------------------------------------------
 
-db.exec(`
-    CREATE TABLE IF NOT EXISTS accidents (
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL
+    });
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+    console.log("Database mode: RENDER PostgreSQL");
 
-        accident_id TEXT UNIQUE NOT NULL,
+} else {
 
-        vehicle_id TEXT NOT NULL,
+    // --------------------------------------------------------
+    // LOCAL POSTGRESQL
+    // --------------------------------------------------------
 
-        latitude REAL NOT NULL,
+    pool = new Pool({
+        host: process.env.PGHOST || "localhost",
+        port: Number(process.env.PGPORT || 5432),
+        database: process.env.PGDATABASE || "accident_alert_system",
+        user: process.env.PGUSER || "postgres",
+        password: process.env.PGPASSWORD
+    });
 
-        longitude REAL NOT NULL,
-
-        impact TEXT NOT NULL,
-
-        speed REAL,
-
-        status TEXT NOT NULL DEFAULT 'ACTIVE',
-
-        detected_at TEXT NOT NULL,
-
-        updated_at TEXT NOT NULL
-
-    );
-`);
+    console.log("Database mode: LOCAL PostgreSQL");
+}
 
 
 // ============================================================
-// INSERT ACCIDENT
+// TEST DATABASE CONNECTION
 // ============================================================
 
-function createAccident({
+async function testDatabaseConnection() {
 
-    accidentId,
-    vehicleId,
-    latitude,
-    longitude,
-    impact,
-    speed
+    const client = await pool.connect();
 
-}) {
+    try {
 
-    const now =
-        new Date().toISOString();
+        const result = await client.query(`
+            SELECT
+                current_database() AS current_database,
+                current_schema() AS current_schema,
+                current_user AS current_user
+        `);
+
+        console.log("PostgreSQL connection successful:");
+        console.log(result.rows[0]);
+
+        return result.rows[0];
+
+    } finally {
+
+        client.release();
+
+    }
+}
 
 
-    const statement = db.prepare(`
+// ============================================================
+// CREATE ACCIDENT
+// ============================================================
 
+async function createAccident(data) {
+
+    const {
+        vehicleId,
+        latitude,
+        longitude,
+        impact,
+        severity,
+        speed
+    } = data;
+
+    const accidentId =
+        `ACC-${Date.now()}`;
+
+    const query = `
         INSERT INTO accidents (
-
             accident_id,
             vehicle_id,
             latitude,
             longitude,
             impact,
+            severity,
             speed,
             status,
             detected_at,
             updated_at
-
         )
-
         VALUES (
-
-            @accidentId,
-            @vehicleId,
-            @latitude,
-            @longitude,
-            @impact,
-            @speed,
+            $1,
+            $2,
+            $3,
+            $4,
+            $5,
+            $6,
+            $7,
             'ACTIVE',
-            @detectedAt,
-            @updatedAt
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
+        )
+        RETURNING *
+    `;
 
-        );
-
-    `);
-
-
-    statement.run({
-
+    const values = [
         accidentId,
-
         vehicleId,
-
-        latitude,
-
-        longitude,
-
+        latitude ?? null,
+        longitude ?? null,
         impact,
+        severity || "HIGH",
+        speed ?? null
+    ];
 
-        speed: speed ?? null,
+    const result =
+        await pool.query(query, values);
 
-        detectedAt: now,
-
-        updatedAt: now
-
-    });
-
-
-    return getAccidentById(
-        accidentId
-    );
-
+    return result.rows[0];
 }
 
 
 // ============================================================
-// GET CURRENT ACTIVE ACCIDENT
+// GET CURRENT ACCIDENT
 // ============================================================
 
-function getCurrentAccident() {
+async function getCurrentAccident() {
 
-    return db.prepare(`
-
+    const query = `
         SELECT *
-
         FROM accidents
-
         WHERE status != 'RESOLVED'
-
-        ORDER BY id DESC
-
+        ORDER BY detected_at DESC
         LIMIT 1
+    `;
 
-    `).get();
+    const result =
+        await pool.query(query);
 
+    return result.rows[0] || null;
 }
 
 
@@ -158,75 +162,18 @@ function getCurrentAccident() {
 // GET ACCIDENT BY ID
 // ============================================================
 
-function getAccidentById(
-    accidentId
-) {
+async function getAccidentById(id) {
 
-    return db.prepare(`
-
+    const query = `
         SELECT *
-
         FROM accidents
-
-        WHERE accident_id = ?
-
-    `).get(
-        accidentId
-    );
-
-}
-
-
-// ============================================================
-// UPDATE ACCIDENT STATUS
-// ============================================================
-
-function updateAccidentStatus(
-    accidentId,
-    status
-) {
-
-    const now =
-        new Date().toISOString();
-
+        WHERE accident_id = $1
+    `;
 
     const result =
-        db.prepare(`
+        await pool.query(query, [id]);
 
-            UPDATE accidents
-
-            SET
-
-                status = ?,
-
-                updated_at = ?
-
-            WHERE accident_id = ?
-
-        `).run(
-
-            status,
-
-            now,
-
-            accidentId
-
-        );
-
-
-    if (
-        result.changes === 0
-    ) {
-
-        return null;
-
-    }
-
-
-    return getAccidentById(
-        accidentId
-    );
-
+    return result.rows[0] || null;
 }
 
 
@@ -234,18 +181,195 @@ function updateAccidentStatus(
 // GET ALL ACCIDENTS
 // ============================================================
 
-function getAllAccidents() {
+async function getAllAccidents() {
 
-    return db.prepare(`
-
+    const query = `
         SELECT *
-
         FROM accidents
+        ORDER BY detected_at DESC
+    `;
 
-        ORDER BY id DESC
+    const result =
+        await pool.query(query);
 
-    `).all();
+    return result.rows;
+}
 
+
+// ============================================================
+// UPDATE ACCIDENT STATUS
+// ============================================================
+
+async function updateAccidentStatus(
+    accidentId,
+    status
+) {
+
+    const query = `
+        UPDATE accidents
+        SET
+            status = $1,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE accident_id = $2
+        RETURNING *
+    `;
+
+    const result =
+        await pool.query(
+            query,
+            [status, accidentId]
+        );
+
+    return result.rows[0] || null;
+}
+
+
+// ============================================================
+// DELETE ACCIDENT
+// ============================================================
+
+async function deleteAccident(
+    accidentId
+) {
+
+    const query = `
+        DELETE FROM accidents
+        WHERE accident_id = $1
+        RETURNING *
+    `;
+
+    const result =
+        await pool.query(
+            query,
+            [accidentId]
+        );
+
+    return result.rows[0] || null;
+}
+
+
+// ============================================================
+// GET DEPARTMENTS
+// ============================================================
+
+async function getDepartments() {
+
+    const query = `
+        SELECT
+            id,
+            department_name,
+            department_id
+        FROM departments
+        ORDER BY id
+    `;
+
+    const result =
+        await pool.query(query);
+
+    return result.rows;
+}
+
+
+// ============================================================
+// LOGIN DEPARTMENT
+// ============================================================
+
+async function loginDepartment(
+    departmentId,
+    password
+) {
+
+    const query = `
+        SELECT
+            id,
+            department_name,
+            department_id
+        FROM departments
+        WHERE department_id = $1
+        AND password = $2
+        LIMIT 1
+    `;
+
+    const result =
+        await pool.query(
+            query,
+            [departmentId, password]
+        );
+
+    return result.rows[0] || null;
+}
+
+
+// ============================================================
+// CREATE RESPONSE LOG
+// ============================================================
+
+async function createResponseLog(
+    accidentId,
+    departmentId,
+    action
+) {
+
+    const query = `
+        INSERT INTO response_logs (
+            accident_id,
+            department_id,
+            action,
+            created_at
+        )
+        VALUES (
+            $1,
+            $2,
+            $3,
+            CURRENT_TIMESTAMP
+        )
+        RETURNING *
+    `;
+
+    const result =
+        await pool.query(
+            query,
+            [
+                accidentId,
+                departmentId,
+                action
+            ]
+        );
+
+    return result.rows[0];
+}
+
+
+// ============================================================
+// GET RESPONSE LOGS
+// ============================================================
+
+async function getResponseLogs(
+    accidentId
+) {
+
+    const query = `
+        SELECT
+            rl.id,
+            rl.accident_id,
+            rl.department_id,
+            d.department_name,
+            rl.action,
+            rl.created_at
+        FROM response_logs rl
+        LEFT JOIN departments d
+            ON rl.department_id = d.department_id
+        WHERE rl.accident_id = $1
+        ORDER BY rl.created_at ASC
+    `;
+
+    const result =
+        await pool.query(
+            query,
+            [accidentId]
+        );
+
+    return result.rows;
 }
 
 
@@ -255,7 +379,7 @@ function getAllAccidents() {
 
 module.exports = {
 
-    db,
+    testDatabaseConnection,
 
     createAccident,
 
@@ -263,8 +387,18 @@ module.exports = {
 
     getAccidentById,
 
+    getAllAccidents,
+
     updateAccidentStatus,
 
-    getAllAccidents
+    deleteAccident,
+
+    getDepartments,
+
+    loginDepartment,
+
+    createResponseLog,
+
+    getResponseLogs
 
 };
