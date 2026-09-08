@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // BACKEND CONFIGURATION
     // ============================================================
 
-    const BACKEND_URL = "https://accident-alert-system-8e0q.onrender.com";
+    const BACKEND_URL = "https://accident-alert-system-8eoq.onrender.com";
 
     const ACCIDENTS_API =
         `${BACKEND_URL}/api/accidents`;
