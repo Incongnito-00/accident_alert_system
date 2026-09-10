@@ -1,8 +1,20 @@
+// ============================================================
+// ACCIDENT ALERT SYSTEM
+// Node.js + Express + PostgreSQL
+// ============================================================
+
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+
+// ============================================================
+// DATABASE FUNCTIONS
+// ============================================================
+
 const {
+
+    initializeDatabase,
 
     testDatabaseConnection,
 
@@ -28,6 +40,10 @@ const {
 
 } = require("./database");
 
+
+// ============================================================
+// EXPRESS APP
+// ============================================================
 
 const app = express();
 
@@ -72,59 +88,65 @@ app.get("/", (req, res) => {
 // HEALTH CHECK
 // ============================================================
 
-app.get("/api/health", async (req, res) => {
+app.get(
+    "/api/health",
+    async (req, res) => {
 
-    try {
+        try {
 
-        const databaseConnected =
-            await testDatabaseConnection();
+            const databaseConnected =
+                await testDatabaseConnection();
 
-        if (!databaseConnected) {
 
-            return res.status(500).json({
+            if (!databaseConnected) {
 
-                success: false,
+                return res.status(500).json({
+
+                    success: false,
+
+                    status:
+                        "DATABASE_ERROR"
+
+                });
+
+            }
+
+
+            res.json({
+
+                success: true,
 
                 status:
-                    "DATABASE_ERROR"
+                    "ONLINE",
+
+                database:
+                    "PostgreSQL"
 
             });
 
         }
 
-        res.json({
+        catch (error) {
 
-            success: true,
+            console.error(error);
 
-            status:
-                "ONLINE",
 
-            database:
-                "PostgreSQL"
+            res.status(500).json({
 
-        });
+                success: false,
 
-    }
+                status:
+                    "OFFLINE",
 
-    catch (error) {
+                message:
+                    error.message
 
-        console.error(error);
+            });
 
-        res.status(500).json({
-
-            success: false,
-
-            status:
-                "OFFLINE",
-
-            message:
-                error.message
-
-        });
+        }
 
     }
-
-});
+);
 
 
 // ============================================================
@@ -140,6 +162,7 @@ app.get(
             const accident =
                 await getCurrentAccident();
 
+
             res.json({
 
                 success: true,
@@ -154,6 +177,7 @@ app.get(
         catch (error) {
 
             console.error(error);
+
 
             res.status(500).json({
 
@@ -183,6 +207,7 @@ app.get(
             const accidents =
                 await getAllAccidents();
 
+
             res.json({
 
                 success: true,
@@ -199,6 +224,7 @@ app.get(
         catch (error) {
 
             console.error(error);
+
 
             res.status(500).json({
 
@@ -230,6 +256,7 @@ app.get(
                     req.params.id
                 );
 
+
             if (!accident) {
 
                 return res.status(404).json({
@@ -242,6 +269,7 @@ app.get(
                 });
 
             }
+
 
             res.json({
 
@@ -256,6 +284,7 @@ app.get(
         catch (error) {
 
             console.error(error);
+
 
             res.status(500).json({
 
@@ -274,6 +303,7 @@ app.get(
 
 // ============================================================
 // CREATE ACCIDENT
+// ESP8266 → POST /api/accidents
 // ============================================================
 
 app.post(
@@ -327,6 +357,10 @@ app.post(
             }
 
 
+            // ------------------------------------------------
+            // CONVERT VALUES
+            // ------------------------------------------------
+
             const lat =
                 Number(latitude);
 
@@ -336,6 +370,10 @@ app.post(
             const impactValue =
                 Number(impact);
 
+
+            // ------------------------------------------------
+            // GPS VALIDATION
+            // ------------------------------------------------
 
             if (
 
@@ -351,22 +389,6 @@ app.post(
 
                     message:
                         "Invalid GPS coordinates."
-
-                });
-
-            }
-
-
-            if (
-                !Number.isFinite(impactValue)
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Invalid impact value."
 
                 });
 
@@ -397,13 +419,41 @@ app.post(
             }
 
 
-            let speedValue =
-                null;
+            // ------------------------------------------------
+            // IMPACT VALIDATION
+            // ------------------------------------------------
+
+            if (
+                !Number.isFinite(
+                    impactValue
+                )
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid impact value."
+
+                });
+
+            }
+
+
+            // ------------------------------------------------
+            // SPEED
+            // ------------------------------------------------
+
+            let speedValue = null;
 
 
             if (
+
                 speed !== undefined &&
+
                 speed !== null
+
             ) {
 
                 speedValue =
@@ -411,24 +461,16 @@ app.post(
 
 
                 if (
-                    !Number.isFinite(speedValue)
+                    !Number.isFinite(
+                        speedValue
+                    )
                 ) {
 
-                    speedValue =
-                        null;
+                    speedValue = null;
 
                 }
 
             }
-
-
-            // ------------------------------------------------
-            // ACCIDENT ID
-            // ------------------------------------------------
-
-            const accidentId =
-                "ACC-" +
-                Date.now();
 
 
             // ------------------------------------------------
@@ -438,15 +480,16 @@ app.post(
             const accident =
                 await createAccident({
 
-                    accidentId,
-
                     vehicleId,
 
-                    latitude: lat,
+                    latitude:
+                        lat,
 
-                    longitude: lng,
+                    longitude:
+                        lng,
 
-                    impact: impactValue,
+                    impact:
+                        impactValue,
 
                     severity:
                         severity || "HIGH",
@@ -458,7 +501,7 @@ app.post(
 
 
             // ------------------------------------------------
-            // LOG
+            // SERVER LOG
             // ------------------------------------------------
 
             console.log("");
@@ -541,7 +584,11 @@ app.post(
 
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "ACCIDENT SAVE ERROR:",
+                error
+            );
+
 
             res.status(500).json({
 
@@ -581,8 +628,11 @@ app.post(
 
 
             if (
+
                 !departmentId ||
+
                 !password
+
             ) {
 
                 return res.status(400).json({
@@ -638,6 +688,7 @@ app.post(
 
             console.error(error);
 
+
             res.status(500).json({
 
                 success: false,
@@ -666,6 +717,7 @@ app.get(
             const departments =
                 await getDepartments();
 
+
             res.json({
 
                 success: true,
@@ -679,6 +731,7 @@ app.get(
         catch (error) {
 
             console.error(error);
+
 
             res.status(500).json({
 
@@ -730,7 +783,9 @@ app.patch(
 
 
             if (
-                !allowedStatuses.includes(status)
+                !allowedStatuses.includes(
+                    status
+                )
             ) {
 
                 return res.status(400).json({
@@ -773,23 +828,23 @@ app.patch(
                 );
 
 
-            if (
-                departmentId
-            ) {
+            // ------------------------------------------------
+            // RESPONSE LOG
+            // ------------------------------------------------
+
+            if (departmentId) {
 
                 try {
 
-                    await createResponseLog({
+                    await createResponseLog(
 
-                        accidentId:
-                            accident.accident_id,
+                        accident.accident_id,
 
                         departmentId,
 
-                        action:
-                            status
+                        status
 
-                    });
+                    );
 
                 }
 
@@ -822,6 +877,7 @@ app.patch(
         catch (error) {
 
             console.error(error);
+
 
             res.status(500).json({
 
@@ -873,7 +929,9 @@ app.patch(
 
 
             if (
-                !allowedStatuses.includes(status)
+                !allowedStatuses.includes(
+                    status
+                )
             ) {
 
                 return res.status(400).json({
@@ -918,23 +976,23 @@ app.patch(
                 );
 
 
-            if (
-                departmentId
-            ) {
+            // ------------------------------------------------
+            // RESPONSE LOG
+            // ------------------------------------------------
+
+            if (departmentId) {
 
                 try {
 
-                    await createResponseLog({
+                    await createResponseLog(
 
-                        accidentId:
-                            accident.accident_id,
+                        accident.accident_id,
 
                         departmentId,
 
-                        action:
-                            status
+                        status
 
-                    });
+                    );
 
                 }
 
@@ -967,6 +1025,7 @@ app.patch(
         catch (error) {
 
             console.error(error);
+
 
             res.status(500).json({
 
@@ -1038,6 +1097,7 @@ app.get(
 
             console.error(error);
 
+
             res.status(500).json({
 
                 success: false,
@@ -1101,6 +1161,7 @@ app.delete(
 
             console.error(error);
 
+
             res.status(500).json({
 
                 success: false,
@@ -1122,39 +1183,120 @@ app.delete(
 
 async function startServer() {
 
-    console.log("");
+    try {
 
-    console.log(
-        "========================================"
-    );
+        console.log("");
 
-    console.log(
-        "🚨 ACCIDENT ALERT SYSTEM"
-    );
+        console.log(
+            "========================================"
+        );
 
-    console.log(
-        "========================================"
-    );
+        console.log(
+            "🚨 ACCIDENT ALERT SYSTEM"
+        );
 
-    console.log(
-        "Starting PostgreSQL connection..."
-    );
+        console.log(
+            "========================================"
+        );
 
 
-    const connected =
+        // ----------------------------------------------------
+        // TEST POSTGRESQL CONNECTION
+        // ----------------------------------------------------
+
+        console.log(
+            "Connecting to PostgreSQL..."
+        );
+
         await testDatabaseConnection();
 
 
-    if (!connected) {
+        // ----------------------------------------------------
+        // CREATE DATABASE TABLES
+        // ----------------------------------------------------
+
+        console.log(
+            "Initializing database..."
+        );
+
+        await initializeDatabase();
+
+
+        // ----------------------------------------------------
+        // START EXPRESS SERVER
+        // ----------------------------------------------------
+
+        app.listen(
+            PORT,
+            () => {
+
+                console.log("");
+
+                console.log(
+                    "========================================"
+                );
+
+                console.log(
+                    "🚨 ACCIDENT ALERT SYSTEM"
+                );
+
+                console.log(
+                    "========================================"
+                );
+
+                console.log(
+                    `Backend: http://localhost:${PORT}`
+                );
+
+                console.log(
+                    `Health: http://localhost:${PORT}/api/health`
+                );
+
+                console.log(
+                    "Database: PostgreSQL"
+                );
+
+                console.log(
+                    "Tables: READY"
+                );
+
+                console.log(
+                    "Status: ONLINE"
+                );
+
+                console.log(
+                    "========================================"
+                );
+
+                console.log("");
+
+            }
+        );
+
+    }
+
+    catch (error) {
 
         console.error("");
 
         console.error(
-            "❌ PostgreSQL connection failed."
+            "========================================"
         );
 
         console.error(
-            "Check your .env file."
+            "❌ SERVER STARTUP FAILED"
+        );
+
+        console.error(
+            "========================================"
+        );
+
+        console.error(
+            error.message
+        );
+
+        console.error(
+            "========================================"
         );
 
         console.error("");
@@ -1163,51 +1305,11 @@ async function startServer() {
 
     }
 
-
-    app.listen(
-        PORT,
-        () => {
-
-            console.log("");
-
-            console.log(
-                "========================================"
-            );
-
-            console.log(
-                "🚨 ACCIDENT ALERT SYSTEM"
-            );
-
-            console.log(
-                "========================================"
-            );
-
-            console.log(
-                `Backend: http://localhost:${PORT}`
-            );
-
-            console.log(
-                `Health: http://localhost:${PORT}/api/health`
-            );
-
-            console.log(
-                "Database: PostgreSQL"
-            );
-
-            console.log(
-                "Status: ONLINE"
-            );
-
-            console.log(
-                "========================================"
-            );
-
-            console.log("");
-
-        }
-    );
-
 }
 
+
+// ============================================================
+// RUN SERVER
+// ============================================================
 
 startServer();
